@@ -4,7 +4,7 @@ import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid,
          Tooltip, Legend, Bar, BarChart } from 'recharts';
 import { fetchStockData } from '../services/supabase';
 import { formatDate } from '../utils/formatters';
-import './StockDetail.css';
+import '../styles/components/StockDetail.css';
 
 const StockDetail = ({ recoveryMetrics }) => {
   const { symbol } = useParams();

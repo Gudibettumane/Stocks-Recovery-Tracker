@@ -1,0 +1,212 @@
+.navbar {
+    background-color: #fff;
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    transition: all 0.3s ease;
+  }
+  
+  .navbar.scrolled {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    padding: 0 20px;
+  }
+  
+  .navbar-logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #333;
+    font-weight: 600;
+    font-size: 1.2rem;
+  }
+  
+  .logo-icon {
+    margin-right: 10px;
+    font-size: 1.5rem;
+  }
+  
+  .navbar-mobile-toggle {
+    display: none;
+    cursor: pointer;
+  }
+  
+  .menu-icon {
+    display: block;
+    position: relative;
+    width: 25px;
+    height: 3px;
+    background-color: #333;
+    transition: all 0.3s ease;
+  }
+  
+  .menu-icon::before,
+  .menu-icon::after {
+    content: '';
+    position: absolute;
+    width: 25px;
+    height: 3px;
+    background-color: #333;
+    transition: all 0.3s ease;
+  }
+  
+  .menu-icon::before {
+    transform: translateY(-8px);
+  }
+  
+  .menu-icon::after {
+    transform: translateY(8px);
+  }
+  
+  .menu-icon.open {
+    background-color: transparent;
+  }
+  
+  .menu-icon.open::before {
+    transform: rotate(45deg);
+  }
+  
+  .menu-icon.open::after {
+    transform: rotate(-45deg);
+  }
+  
+  .navbar-menu {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .navbar-item {
+    height: 70px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .navbar-link {
+    color: #333;
+    text-decoration: none;
+    padding: 0 15px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    position: relative;
+    font-weight: 500;
+    transition: color 0.3s ease;
+  }
+  
+  .navbar-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 15px;
+    right: 15px;
+    height: 3px;
+    background-color: #2c6bed;
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+  }
+  
+  .navbar-link:hover {
+    color: #2c6bed;
+  }
+  
+  .navbar-link.active {
+    color: #2c6bed;
+  }
+  
+  .navbar-link.active::after {
+    transform: scaleX(1);
+  }
+  
+  .info-item {
+    margin-left: 20px;
+    border-left: 1px solid #eee;
+    padding-left: 20px;
+  }
+  
+  .market-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .info-label {
+    font-size: 0.7rem;
+    color: #666;
+  }
+  
+  .info-value {
+    font-weight: 500;
+    color: #333;
+  }
+  
+  @media screen and (max-width: 960px) {
+    .navbar-mobile-toggle {
+      display: block;
+    }
+  
+    .navbar-menu {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      position: absolute;
+      top: 70px;
+      left: -100%;
+      opacity: 1;
+      transition: all 0.5s ease;
+      background-color: #fff;
+      box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1);
+    }
+  
+    .navbar-menu.active {
+      left: 0;
+      opacity: 1;
+      transition: all 0.5s ease;
+      z-index: 1;
+    }
+  
+    .navbar-item {
+      height: 60px;
+      width: 100%;
+      border-bottom: 1px solid #eee;
+    }
+  
+    .navbar-link {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      padding: 0;
+    }
+  
+    .navbar-link::after {
+      display: none;
+    }
+  
+    .info-item {
+      margin-left: 0;
+      border-left: none;
+      padding-left: 0;
+      justify-content: center;
+    }
+  
+    .market-info {
+      align-items: center;
+    }
+  
+    .logo-text {
+      font-size: 1rem;
+    }
+  }

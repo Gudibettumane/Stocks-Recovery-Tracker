@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './FilterPanel.css';
+import '../styles/components/FilterPanel.css';
 
 const FilterPanel = ({ sectors, marketCapCategories, filters, onFilterChange }) => {
   const [expanded, setExpanded] = useState(false);

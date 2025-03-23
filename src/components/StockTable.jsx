@@ -1,6 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import './StockTable.css';
+import '../styles/components/StockTable.css';
 
 const StockTable = ({ stocks }) => {
   const [sortConfig, setSortConfig] = useState({

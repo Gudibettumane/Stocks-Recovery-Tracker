@@ -1,0 +1,131 @@
+.filter-panel {
+    background-color: #fff;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    overflow: hidden;
+  }
+  
+  .filter-header {
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .filter-header h3 {
+    margin: 0;
+    color: #333;
+    font-size: 1.1rem;
+  }
+  
+  .expand-button {
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: #666;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    transition: color 0.2s;
+  }
+  
+  .expand-button:hover {
+    color: #2c6bed;
+  }
+  
+  .filter-content {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-height: 0;
+    opacity: 0;
+    transition: max-height 0.3s ease, opacity 0.3s ease, padding 0.3s ease;
+  }
+  
+  .filter-panel.expanded .filter-content {
+    max-height: 500px;
+    opacity: 1;
+  }
+  
+  .filter-panel:not(.expanded) .filter-content {
+    padding: 0 20px;
+  }
+  
+  .filter-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .filter-group {
+    flex: 1;
+    min-width: 200px;
+  }
+  
+  .filter-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: #555;
+    font-weight: 500;
+  }
+  
+  .filter-group input[type="text"],
+  .filter-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+  
+  .filter-group input[type="text"]:focus,
+  .filter-group select:focus {
+    border-color: #2c6bed;
+    outline: none;
+  }
+  
+  .slider-group {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .slider-group input[type="range"] {
+    width: 100%;
+    margin-top: 10px;
+    accent-color: #2c6bed;
+  }
+  
+  .reset-button {
+    background-color: #f0f0f0;
+    color: #333;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s;
+    margin-top: 25px;
+  }
+  
+  .reset-button:hover {
+    background-color: #e0e0e0;
+  }
+  
+  @media (max-width: 768px) {
+    .filter-row {
+      flex-direction: column;
+      gap: 15px;
+    }
+    
+    .filter-group {
+      width: 100%;
+    }
+  }
