@@ -9,6 +9,30 @@ import SectorHeatmap from './SectorHeatmap';
 import FilterPanel from './FilterPanel';
 import '../styles/components/Dashboard.css';
 
+// Custom tooltip component for better data display
+const CustomTooltip = ({ active, payload, label }) => {
+  if (active && payload && payload.length) {
+    return (
+      <div className="custom-chart-tooltip">
+        <p className="tooltip-label">{label}</p>
+        {payload.map((entry, index) => (
+          <p 
+            key={`item-${index}`} 
+            className="tooltip-value"
+            style={{ color: entry.color }}
+          >
+            {`${entry.name}: ${typeof entry.value === 'number' ? entry.value.toFixed(2) : entry.value}${entry.name.includes('%') ? '%' : ''}`}
+          </p>
+        ))}
+        {payload[0].payload.count && (
+          <p className="tooltip-count">Stocks: {payload[0].payload.count}</p>
+        )}
+      </div>
+    );
+  }
+  return null;
+};
+
 const Dashboard = ({ recoveryMetrics, stockMetadata }) => {
   const [filteredStocks, setFilteredStocks] = useState([]);
   const [filters, setFilters] = useState({
@@ -46,6 +70,11 @@ const Dashboard = ({ recoveryMetrics, stockMetadata }) => {
       avgBounce: item.totalBounce / item.count,
     })).sort((a, b) => b.avgBounce - a.avgBounce);
   }, [recoveryMetrics]);
+
+  // Limit to top 15 sectors for better readability in charts
+  const topSectors = useMemo(() => {
+    return sectorPerformance.slice(0, 15);
+  }, [sectorPerformance]);
 
   // Market cap performance data
   const marketCapPerformance = useMemo(() => {
@@ -158,29 +187,34 @@ const Dashboard = ({ recoveryMetrics, stockMetadata }) => {
                 height={70} 
               />
               <YAxis label={{ value: 'Bounce %', angle: -90, position: 'insideLeft' }} />
-              <Tooltip formatter={(value) => [`${value.toFixed(2)}%`, 'Bounce']} />
-              <Bar dataKey="bounce_percentage" fill="#8884d8" />
+              <Tooltip content={<CustomTooltip />} />
+              <Bar dataKey="bounce_percentage" name="Bounce %" fill="#8884d8" />
             </BarChart>
           </ResponsiveContainer>
         </div>
         
         <div className="chart-container">
           <h2>Sector Performance</h2>
-          <ResponsiveContainer width="100%" height={300}>
+          {/* Changed to horizontal bar chart for better label readability */}
+          <ResponsiveContainer width="100%" height={400}>
             <BarChart
-              data={sectorPerformance}
-              margin={{ top: 20, right: 30, left: 20, bottom: 60 }}
+              data={topSectors}
+              layout="vertical"
+              margin={{ top: 20, right: 30, left: 150, bottom: 20 }}
             >
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis 
-                dataKey="sector" 
-                angle={-45} 
-                textAnchor="end" 
-                height={70} 
+                type="number"
+                label={{ value: 'Avg. Bounce %', position: 'insideBottom', offset: -10 }}
               />
-              <YAxis label={{ value: 'Avg. Bounce %', angle: -90, position: 'insideLeft' }} />
-              <Tooltip formatter={(value) => [`${value.toFixed(2)}%`, 'Avg Bounce']} />
-              <Bar dataKey="avgBounce" fill="#82ca9d" />
+              <YAxis 
+                type="category" 
+                dataKey="sector" 
+                width={140}
+                tick={{ fontSize: 12 }}
+              />
+              <Tooltip content={<CustomTooltip />} />
+              <Bar dataKey="avgBounce" name="Avg. Bounce %" fill="#82ca9d" />
             </BarChart>
           </ResponsiveContainer>
         </div>
@@ -195,8 +229,8 @@ const Dashboard = ({ recoveryMetrics, stockMetadata }) => {
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="category" />
               <YAxis label={{ value: 'Avg. Bounce %', angle: -90, position: 'insideLeft' }} />
-              <Tooltip formatter={(value) => [`${value.toFixed(2)}%`, 'Avg Bounce']} />
-              <Bar dataKey="avgBounce" fill="#ffc658" />
+              <Tooltip content={<CustomTooltip />} />
+              <Bar dataKey="avgBounce" name="Avg. Bounce %" fill="#ffc658" />
             </BarChart>
           </ResponsiveContainer>
         </div>

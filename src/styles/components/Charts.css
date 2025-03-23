@@ -1,0 +1,119 @@
+/* Chart styles for the Indian Market Recovery Tracker */
+
+/* Tooltip styling */
+.custom-chart-tooltip {
+    background-color: rgba(255, 255, 255, 0.95);
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    max-width: 300px;
+  }
+  
+  .tooltip-label {
+    margin: 0 0 5px;
+    font-weight: 600;
+    color: #333;
+  }
+  
+  .tooltip-value {
+    margin: 3px 0;
+    font-weight: 500;
+  }
+  
+  .tooltip-count {
+    margin: 5px 0 0;
+    font-size: 0.85rem;
+    color: #666;
+  }
+  
+  /* Chart containers */
+  .chart-container {
+    min-height: 300px;
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+  }
+  
+  .chart-container h2, 
+  .chart-container h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+    color: #333;
+    text-align: center;
+  }
+  
+  /* Make sure sector labels are visible */
+  .recharts-layer.recharts-cartesian-axis-tick text {
+    font-size: 12px;
+  }
+  
+  /* Allow tick values to break to the next line if too long */
+  .recharts-layer.recharts-cartesian-axis-tick tspan {
+    word-break: break-word;
+  }
+  
+  /* Increase contrast for chart elements */
+  .recharts-cartesian-grid-horizontal line,
+  .recharts-cartesian-grid-vertical line {
+    stroke: rgba(0, 0, 0, 0.1);
+  }
+  
+  .recharts-cartesian-axis-line {
+    stroke: rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Hover effects for interactive elements */
+  .recharts-bar-rectangle:hover {
+    opacity: 0.8;
+  }
+  
+  .recharts-pie-sector:hover {
+    opacity: 0.9;
+  }
+  
+  .recharts-default-legend .recharts-legend-item {
+    padding: 5px;
+    cursor: pointer;
+  }
+  
+  /* Style for Treemap hover */
+  .recharts-treemap-depth-1:hover {
+    opacity: 0.8;
+  }
+  
+  /* Style for radar chart */
+  .recharts-polygon {
+    fill-opacity: 0.3;
+  }
+  
+  .recharts-radar-polygon:hover {
+    fill-opacity: 0.5;
+  }
+  
+  /* Chart legends */
+  .chart-legend {
+    text-align: center;
+    color: #666;
+    font-style: italic;
+    margin-top: 10px;
+    font-size: 0.9rem;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .chart-container {
+      padding: 15px;
+    }
+    
+    .recharts-responsive-container {
+      height: 300px !important;
+    }
+    
+    .recharts-layer.recharts-cartesian-axis-tick text {
+      font-size: 10px;
+    }
+  }

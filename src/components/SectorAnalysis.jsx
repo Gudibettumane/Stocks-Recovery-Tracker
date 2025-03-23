@@ -7,6 +7,88 @@ import {
 import { Link } from 'react-router-dom';
 import '../styles/components/SectorAnalysis.css';
 
+// Custom tooltip component for better data display
+const CustomTooltip = ({ active, payload, label }) => {
+  if (active && payload && payload.length) {
+    return (
+      <div className="custom-chart-tooltip">
+        <p className="tooltip-label">{`${label}`}</p>
+        {payload.map((entry, index) => (
+          <p 
+            key={`item-${index}`} 
+            className="tooltip-value"
+            style={{ color: entry.color }}
+          >
+            {`${entry.name}: ${typeof entry.value === 'number' ? entry.value.toFixed(2) : entry.value}${entry.name.includes('%') ? '%' : ''}`}
+          </p>
+        ))}
+        {payload[0].payload.count && (
+          <p className="tooltip-count">Stocks: {payload[0].payload.count}</p>
+        )}
+      </div>
+    );
+  }
+  return null;
+};
+
+// Custom TreeMap content renderer to handle sector labels better
+const CustomizedContent = (props) => {
+  const { root, depth, x, y, width, height, index, name, value } = props;
+  
+  // Don't render text if the rectangle is too small
+  if (width < 30 || height < 30) {
+    return (
+      <g>
+        <rect
+          x={x}
+          y={y}
+          width={width}
+          height={height}
+          style={{
+            fill: 'none',
+            stroke: '#fff',
+            strokeWidth: 2 / (depth + 1e-10),
+            strokeOpacity: 1 / (depth + 1e-10),
+          }}
+        />
+      </g>
+    );
+  }
+  
+  return (
+    <g>
+      <rect
+        x={x}
+        y={y}
+        width={width}
+        height={height}
+        style={{
+          fill: 'none',
+          stroke: '#fff',
+          strokeWidth: 2 / (depth + 1e-10),
+          strokeOpacity: 1 / (depth + 1e-10),
+        }}
+      />
+      {
+        width > 50 && height > 30 ? (
+          <text
+            x={x + width / 2}
+            y={y + height / 2}
+            textAnchor="middle"
+            fill="#fff"
+            fontSize={12}
+            fontWeight="bold"
+            dominantBaseline="middle"
+          >
+            {name}
+          </text>
+        ) : null
+      }
+      <title>{`${name}: ${value.toFixed(2)}%`}</title>
+    </g>
+  );
+};
+
 const SectorAnalysis = ({ recoveryMetrics }) => {
   const [selectedSector, setSelectedSector] = useState('all');
   const [chartType, setChartType] = useState('barChart');
@@ -64,6 +146,11 @@ const SectorAnalysis = ({ recoveryMetrics }) => {
         sector.totalDaysToRecover / sector.stocksWithDaysData : 0,
     })).sort((a, b) => b.avgBounce - a.avgBounce);
   }, [recoveryMetrics]);
+  
+  // Limit to top 15 sectors for better chart readability
+  const topSectors = useMemo(() => {
+    return sectorPerformance.slice(0, 15);
+  }, [sectorPerformance]);
   
   // Market cap distribution by sector
   const marketCapDistribution = useMemo(() => {
@@ -139,20 +226,6 @@ const SectorAnalysis = ({ recoveryMetrics }) => {
   // Custom colors for charts
   const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884d8', '#82ca9d'];
   
-  // Custom tooltip for bar charts
-  const CustomTooltip = ({ active, payload, label }) => {
-    if (active && payload && payload.length) {
-      return (
-        <div className="custom-tooltip">
-          <p className="label">{`${label}`}</p>
-          <p className="value">{`${payload[0].name}: ${payload[0].value.toFixed(2)}`}</p>
-          <p className="stocks">{`Number of Stocks: ${payload[0].payload.count}`}</p>
-        </div>
-      );
-    }
-    return null;
-  };
-  
   return (
     <div className="sector-analysis">
       <h1>Sector Analysis</h1>
@@ -197,23 +270,26 @@ const SectorAnalysis = ({ recoveryMetrics }) => {
         
         {chartType === 'barChart' && (
           <div className="chart-container">
-            <ResponsiveContainer width="100%" height={400}>
+            <ResponsiveContainer width="100%" height={500}>
               <BarChart 
                 data={selectedSector === 'all' 
-                  ? sectorPerformance 
+                  ? topSectors // Show only top sectors for better readability
                   : marketCapDistribution.filter(item => item.sector === selectedSector)
                 }
-                margin={{ top: 20, right: 30, left: 20, bottom: 70 }}
+                layout="vertical" // Changed to horizontal bar chart
+                margin={{ top: 20, right: 30, left: 150, bottom: 20 }}
               >
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis 
-                  dataKey="sector" 
-                  angle={-45} 
-                  textAnchor="end" 
-                  height={70} 
-                  interval={0}
+                  type="number" // Changed from category to number for horizontal layout
+                  label={{ value: selectedSector === 'all' ? 'Avg. Bounce %' : 'Percentage', position: 'insideBottom', offset: -10 }} 
                 />
-                <YAxis label={{ value: 'Avg. Bounce %', angle: -90, position: 'insideLeft' }} />
+                <YAxis 
+                  type="category" // Changed from number to category for horizontal layout
+                  dataKey="sector"
+                  width={140} // Fixed width for sector names to prevent text cutoff
+                  tick={{ fontSize: 12 }}
+                />
                 <Tooltip content={<CustomTooltip />} />
                 <Legend />
                 <Bar 
@@ -238,7 +314,7 @@ const SectorAnalysis = ({ recoveryMetrics }) => {
               <PieChart>
                 <Pie
                   data={selectedSector === 'all' 
-                    ? sectorPerformance.map(sector => ({
+                    ? topSectors.map(sector => ({ // Limit to top sectors for readability
                         name: sector.sector,
                         value: sector.count
                       }))
@@ -257,7 +333,7 @@ const SectorAnalysis = ({ recoveryMetrics }) => {
                   label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
                 >
                   {selectedSector === 'all' 
-                    ? sectorPerformance.map((entry, index) => (
+                    ? topSectors.map((entry, index) => (
                         <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                       ))
                     : [0, 1, 2].map((entry, index) => (
@@ -282,6 +358,8 @@ const SectorAnalysis = ({ recoveryMetrics }) => {
                 stroke="#fff"
                 fill="#8884d8"
                 nameKey="name"
+                // Add custom content for better labels
+                content={<CustomizedContent />}
               >
                 {
                   treemapData.children.map((item, index) => (
