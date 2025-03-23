@@ -1,0 +1,115 @@
+.sector-heatmap {
+    width: 100%;
+    overflow-x: auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+  }
+  
+  .heatmap-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+    background-color: #fff;
+  }
+  
+  .heatmap-table th,
+  .heatmap-table td {
+    padding: 12px;
+    text-align: center;
+    border: 1px solid #eee;
+  }
+  
+  .heatmap-table th {
+    background-color: #f5f5f5;
+    color: #333;
+    font-weight: 600;
+    position: sticky;
+    top: 0;
+  }
+  
+  .heatmap-table tr:hover {
+    background-color: rgba(0, 0, 0, 0.02);
+  }
+  
+  .sector-name {
+    font-weight: 500;
+    text-align: left;
+    background-color: #f9f9f9;
+    color: #333;
+    position: sticky;
+    left: 0;
+    min-width: 150px;
+  }
+  
+  .heatmap-cell {
+    min-width: 80px;
+    transition: all 0.2s ease;
+  }
+  
+  .heatmap-cell:hover {
+    transform: scale(1.05);
+    z-index: 5;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+  }
+  
+  .cell-value {
+    font-weight: 600;
+    font-size: 1rem;
+  }
+  
+  .cell-count {
+    font-size: 0.8rem;
+    opacity: 0.8;
+    margin-top: 2px;
+  }
+  
+  /* Legend for color interpretation */
+  .heatmap-legend {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    gap: 15px;
+  }
+  
+  .legend-item {
+    display: flex;
+    align-items: center;
+    font-size: 0.8rem;
+  }
+  
+  .legend-color {
+    width: 20px;
+    height: 10px;
+    margin-right: 5px;
+    border-radius: 2px;
+  }
+  
+  .legend-negative {
+    background: linear-gradient(to right, rgb(50, 0, 0), rgb(255, 0, 0));
+  }
+  
+  .legend-positive {
+    background: linear-gradient(to right, rgb(0, 50, 0), rgb(0, 255, 0));
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .heatmap-table {
+      font-size: 0.8rem;
+    }
+    
+    .heatmap-table th,
+    .heatmap-table td {
+      padding: 8px;
+    }
+    
+    .cell-value {
+      font-size: 0.9rem;
+    }
+    
+    .cell-count {
+      font-size: 0.7rem;
+    }
+  }
