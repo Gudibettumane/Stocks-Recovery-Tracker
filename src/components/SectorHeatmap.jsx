@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import './SectorHeatmap.css';
+import '../styles/components/SectorHeatmap.css';
 
 const SectorHeatmap = ({ recoveryMetrics }) => {
   // Process sector data

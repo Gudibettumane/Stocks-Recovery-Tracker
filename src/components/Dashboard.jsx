@@ -7,7 +7,7 @@ import {
 import StockTable from './StockTable';
 import SectorHeatmap from './SectorHeatmap';
 import FilterPanel from './FilterPanel';
-import './Dashboard.css';
+import '../styles/components/Dashboard.css';
 
 const Dashboard = ({ recoveryMetrics, stockMetadata }) => {
   const [filteredStocks, setFilteredStocks] = useState([]);
