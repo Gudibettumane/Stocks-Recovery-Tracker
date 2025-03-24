@@ -8,5 +8,6 @@ import './styles/components/Charts.css';
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <App />
+    <Analytics />
   </StrictMode>,
 )
