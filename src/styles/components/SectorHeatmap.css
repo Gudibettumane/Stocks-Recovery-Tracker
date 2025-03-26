@@ -37,6 +37,7 @@
 }
 
 .sector-name {
+  color: black;
   font-weight: 600;
   text-align: left;
   background-color: #f8fafc;
