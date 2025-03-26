@@ -1,119 +1,309 @@
-/* Chart styles for the Indian Market Recovery Tracker */
+/* Custom chart styles for Indian Market Recovery Tracker */
 
-/* Tooltip styling */
+/* Tooltips styling */
 .custom-chart-tooltip {
-    background-color: rgba(255, 255, 255, 0.95);
-    border: 1px solid #ddd;
-    padding: 10px;
-    border-radius: 4px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
-    max-width: 300px;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 0.75rem 1rem;
+  box-shadow: var(--shadow-md);
+  max-width: 300px;
+  font-size: 0.875rem;
+  z-index: 100;
+}
+
+.tooltip-label {
+  margin: 0 0 0.5rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  padding-bottom: 0.375rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.tooltip-value {
+  margin: 0.25rem 0;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.tooltip-value::before {
+  content: "•";
+  margin-right: 0.375rem;
+}
+
+.tooltip-count {
+  margin: 0.5rem 0 0;
+  font-size: 0.75rem;
+  color: var(--text-light);
+  text-align: right;
+  padding-top: 0.25rem;
+  border-top: 1px dashed var(--border-color);
+}
+
+/* Chart containers */
+.chart-container {
+  min-height: 300px;
+  position: relative;
+}
+
+.chart-placeholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.7);
+  z-index: 5;
+  backdrop-filter: blur(2px);
+  border-radius: var(--radius-md);
+}
+
+.chart-placeholder p {
+  font-size: 1rem;
+  color: var(--text-medium);
+  text-align: center;
+  max-width: 80%;
+}
+
+/* Make sure sector labels are visible */
+.recharts-layer.recharts-cartesian-axis-tick text {
+  font-size: 0.75rem;
+  fill: var(--text-medium);
+}
+
+.recharts-cartesian-axis-tick-value {
+  font-weight: 500;
+}
+
+.recharts-reference-line text {
+  font-size: 0.75rem;
+  fill: #dc2626;
+  font-weight: 500;
+}
+
+/* Format x-axis tick labels for dates */
+.recharts-xAxis .recharts-cartesian-axis-tick-value {
+  transform: rotate(-45deg);
+  text-anchor: end;
+}
+
+/* Axis label styling */
+.recharts-cartesian-axis-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  fill: var(--text-medium);
+}
+
+/* Increase contrast for chart elements */
+.recharts-cartesian-grid-horizontal line,
+.recharts-cartesian-grid-vertical line {
+  stroke: rgba(0, 0, 0, 0.08);
+}
+
+.recharts-cartesian-axis-line {
+  stroke: rgba(0, 0, 0, 0.2);
+}
+
+/* Hover effects for interactive elements */
+.recharts-bar-rectangle:hover {
+  opacity: 0.85;
+}
+
+.recharts-pie-sector:hover {
+  opacity: 0.85;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.2));
+}
+
+/* Legend styling */
+.recharts-default-legend {
+  padding: 0.75rem 0;
+}
+
+.recharts-legend-item {
+  margin-right: 1.5rem !important;
+}
+
+.recharts-legend-item-text {
+  font-size: 0.875rem;
+  color: var(--text-medium) !important;
+}
+
+.recharts-legend-item-text:hover {
+  color: var(--primary-color) !important;
+  font-weight: 500;
+}
+
+.recharts-legend-icon {
+  border-radius: 2px;
+}
+
+/* Bar chart styling */
+.recharts-bar-rectangle path {
+  transition: all 0.2s ease;
+}
+
+.recharts-bar-rectangle:hover {
+  filter: brightness(0.9);
+}
+
+/* Line chart styling */
+.recharts-line-curve {
+  stroke-width: 2.5px;
+}
+
+.recharts-line-dot circle {
+  stroke-width: 1.5px;
+  r: 4px;
+  transition: all 0.2s ease;
+}
+
+.recharts-line-dot:hover circle {
+  r: 6px;
+  stroke-width: 2px;
+}
+
+/* Area chart styling */
+.recharts-area-area {
+  opacity: 0.2;
+}
+
+.recharts-area-curve {
+  stroke-width: 2px;
+}
+
+/* Pie chart styling */
+.recharts-pie-label-text {
+  font-size: 0.75rem;
+  font-weight: 500;
+  fill: var(--text-dark);
+}
+
+.recharts-pie {
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.1));
+}
+
+/* Radar chart styling */
+.recharts-radar-polygon {
+  stroke-width: 2px;
+  fill-opacity: 0.25;
+}
+
+.recharts-radar-polygon:hover {
+  fill-opacity: 0.4;
+}
+
+.recharts-polar-angle-axis-tick-value {
+  font-size: 0.75rem;
+  fill: var(--text-medium);
+}
+
+/* Scatter chart styling */
+.recharts-scatter-symbol {
+  transition: all 0.2s ease;
+}
+
+.recharts-scatter-symbol:hover {
+  transform: scale(1.2);
+}
+
+/* Treemap styling */
+.recharts-treemap-depth-1:hover {
+  opacity: 0.9;
+}
+
+.recharts-treemap-content {
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+/* Chart legends */
+.chart-legend {
+  text-align: center;
+  color: var(--text-medium);
+  margin-top: 1rem;
+  font-size: 0.875rem;
+  font-style: italic;
+}
+
+/* Chart actions */
+.chart-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.chart-action-button {
+  background-color: transparent;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 0.375rem 0.625rem;
+  font-size: 0.75rem;
+  color: var(--text-medium);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  transition: var(--transition);
+}
+
+.chart-action-button:hover {
+  background-color: var(--bg-light);
+  color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.chart-action-button svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+/* Custom tooltip styling */
+.custom-tooltip {
+  background-color: var(--bg-card);
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+}
+
+.custom-tooltip .label {
+  margin: 0 0 0.5rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.375rem;
+}
+
+.custom-tooltip .value {
+  margin: 0.5rem 0;
+  color: var(--primary-color);
+  font-weight: 500;
+}
+
+.custom-tooltip .stocks {
+  margin: 0.5rem 0 0;
+  color: var(--text-light);
+  font-size: 0.75rem;
+  text-align: right;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .recharts-responsive-container {
+    height: 250px !important;
   }
   
-  .tooltip-label {
-    margin: 0 0 5px;
-    font-weight: 600;
-    color: #333;
-  }
-  
-  .tooltip-value {
-    margin: 3px 0;
-    font-weight: 500;
-  }
-  
-  .tooltip-count {
-    margin: 5px 0 0;
-    font-size: 0.85rem;
-    color: #666;
-  }
-  
-  /* Chart containers */
-  .chart-container {
-    min-height: 300px;
-    background-color: #fff;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-  }
-  
-  .chart-container h2, 
-  .chart-container h3 {
-    margin-top: 0;
-    margin-bottom: 20px;
-    font-size: 1.2rem;
-    color: #333;
-    text-align: center;
-  }
-  
-  /* Make sure sector labels are visible */
   .recharts-layer.recharts-cartesian-axis-tick text {
-    font-size: 12px;
+    font-size: 0.7rem;
   }
   
-  /* Allow tick values to break to the next line if too long */
-  .recharts-layer.recharts-cartesian-axis-tick tspan {
-    word-break: break-word;
+  .recharts-legend-item-text {
+    font-size: 0.8rem;
   }
-  
-  /* Increase contrast for chart elements */
-  .recharts-cartesian-grid-horizontal line,
-  .recharts-cartesian-grid-vertical line {
-    stroke: rgba(0, 0, 0, 0.1);
-  }
-  
-  .recharts-cartesian-axis-line {
-    stroke: rgba(0, 0, 0, 0.2);
-  }
-  
-  /* Hover effects for interactive elements */
-  .recharts-bar-rectangle:hover {
-    opacity: 0.8;
-  }
-  
-  .recharts-pie-sector:hover {
-    opacity: 0.9;
-  }
-  
-  .recharts-default-legend .recharts-legend-item {
-    padding: 5px;
-    cursor: pointer;
-  }
-  
-  /* Style for Treemap hover */
-  .recharts-treemap-depth-1:hover {
-    opacity: 0.8;
-  }
-  
-  /* Style for radar chart */
-  .recharts-polygon {
-    fill-opacity: 0.3;
-  }
-  
-  .recharts-radar-polygon:hover {
-    fill-opacity: 0.5;
-  }
-  
-  /* Chart legends */
-  .chart-legend {
-    text-align: center;
-    color: #666;
-    font-style: italic;
-    margin-top: 10px;
-    font-size: 0.9rem;
-  }
-  
-  /* Responsive adjustments */
-  @media (max-width: 768px) {
-    .chart-container {
-      padding: 15px;
-    }
-    
-    .recharts-responsive-container {
-      height: 300px !important;
-    }
-    
-    .recharts-layer.recharts-cartesian-axis-tick text {
-      font-size: 10px;
-    }
-  }
+}

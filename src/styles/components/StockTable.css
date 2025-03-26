@@ -1,126 +1,249 @@
 .stock-table-container {
-    margin-top: 20px;
-  }
-  
-  .table-info {
-    margin-bottom: 10px;
-    color: #666;
-    font-size: 0.9rem;
-  }
-  
-  .table-responsive {
-    overflow-x: auto;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  }
-  
+  margin-top: 1rem;
+}
+
+.table-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  color: var(--text-medium);
+  font-size: 0.875rem;
+}
+
+.table-actions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.table-action-btn {
+  background-color: var(--bg-light);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  color: var(--text-medium);
+  cursor: pointer;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.table-action-btn:hover {
+  background-color: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+}
+
+.table-responsive {
+  overflow-x: auto;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-card);
+}
+
+.stock-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+  font-size: 0.875rem;
+}
+
+.stock-table th,
+.stock-table td {
+  padding: 0.875rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border-color);
+  white-space: nowrap;
+}
+
+.stock-table th {
+  background-color: #f8fafc;
+  color: var(--text-medium);
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  box-shadow: 0 1px 0 0 var(--border-color);
+}
+
+.stock-table th:hover {
+  background-color: #f1f5f9;
+  color: var(--primary-color);
+}
+
+.stock-table th::after {
+  content: "⇅";
+  opacity: 0.3;
+  margin-left: 0.25rem;
+  font-size: 0.75rem;
+}
+
+.stock-table th.asc::after {
+  content: "↑";
+  opacity: 1;
+  color: var(--primary-color);
+}
+
+.stock-table th.desc::after {
+  content: "↓";
+  opacity: 1;
+  color: var(--primary-color);
+}
+
+.stock-table tr:last-child td {
+  border-bottom: none;
+}
+
+.stock-table tr:hover {
+  background-color: rgba(59, 130, 246, 0.05);
+}
+
+.stock-link {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: 600;
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.stock-link:hover {
+  color: var(--primary-dark);
+  text-decoration: underline;
+}
+
+.stock-table .sector-cell {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  background-color: #e0f2fe;
+  color: #0369a1;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.stock-table .market-cap-cell {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  background-color: #f0fdf4;
+  color: #15803d;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.stock-table .market-cap-cell.large {
+  background-color: #dcfce7;
+  color: #15803d;
+}
+
+.stock-table .market-cap-cell.mid {
+  background-color: #f0fdf4;
+  color: #16a34a;
+}
+
+.stock-table .market-cap-cell.small {
+  background-color: #f7fee7;
+  color: #4d7c0f;
+}
+
+.positive {
+  color: var(--success-color);
+  font-weight: 600;
+}
+
+.negative {
+  color: var(--danger-color);
+  font-weight: 600;
+}
+
+.pagination {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1.25rem;
+  padding: 0.75rem 1rem;
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+}
+
+.pagination-info {
+  color: var(--text-medium);
+  font-size: 0.875rem;
+}
+
+.pagination-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.pagination button {
+  background-color: var(--bg-light);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  width: 2.25rem;
+  height: 2.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition);
+  color: var(--text-medium);
+}
+
+.pagination button:hover:not(:disabled) {
+  background-color: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+}
+
+.pagination button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pagination .active {
+  background-color: var(--primary-color);
+  color: white;
+  border-color: var(--primary-color);
+}
+
+.page-info {
+  margin: 0 0.75rem;
+  color: var(--text-medium);
+  font-size: 0.875rem;
+}
+
+.no-results {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: var(--text-medium);
+  font-size: 1rem;
+}
+
+@media (max-width: 768px) {
   .stock-table {
-    width: 100%;
-    border-collapse: collapse;
-    background-color: #fff;
+    font-size: 0.75rem;
   }
   
   .stock-table th,
   .stock-table td {
-    padding: 12px;
-    text-align: left;
-    border-bottom: 1px solid #eee;
-  }
-  
-  .stock-table th {
-    background-color: #f5f5f5;
-    color: #555;
-    font-weight: 600;
-    cursor: pointer;
-    position: relative;
-    transition: background-color 0.2s;
-  }
-  
-  .stock-table th:hover {
-    background-color: #e5e5e5;
-  }
-  
-  .stock-table tr:last-child td {
-    border-bottom: none;
-  }
-  
-  .stock-table tr:nth-child(even) {
-    background-color: #f9f9f9;
-  }
-  
-  .stock-table tr:hover {
-    background-color: #f0f7ff;
-  }
-  
-  .stock-link {
-    color: #2c6bed;
-    text-decoration: none;
-    font-weight: 500;
-  }
-  
-  .stock-link:hover {
-    text-decoration: underline;
+    padding: 0.75rem 0.625rem;
   }
   
   .pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
+    flex-direction: column;
+    gap: 0.75rem;
   }
   
-  .pagination button {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    padding: 8px 12px;
-    margin: 0 5px;
-    cursor: pointer;
-    border-radius: 4px;
-    transition: all 0.2s;
-  }
-  
-  .pagination button:hover:not(:disabled) {
-    background-color: #f0f0f0;
-    border-color: #999;
-  }
-  
-  .pagination button:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
-  
-  .page-info {
-    margin: 0 15px;
-    color: #555;
-  }
-  
-  .positive {
-    color: #4caf50;
-    font-weight: bold;
-  }
-  
-  .negative {
-    color: #f44336;
-    font-weight: bold;
-  }
-  
-  .no-results {
+  .pagination-info {
     text-align: center;
-    padding: 30px;
-    color: #666;
   }
-  
-  @media (max-width: 768px) {
-    .stock-table {
-      font-size: 0.85rem;
-    }
-    
-    .stock-table th,
-    .stock-table td {
-      padding: 8px;
-    }
-    
-    .pagination button {
-      padding: 6px 10px;
-    }
-  }
+}
