@@ -11,7 +11,6 @@ export const fetchStockRecoveryMetrics = async () => {
   let allData = [];
   let page = 0;
   const pageSize = 1000;
-  let hasMoreData = true;
   let totalCount = 0;
   
   try {
@@ -27,9 +26,7 @@ export const fetchStockRecoveryMetrics = async () => {
     
     totalCount = firstPageResult.count || 0;
     allData = firstPageResult.data || [];
-    
-    console.log('Total records in DB:', totalCount);
-    console.log('Records in first page:', allData.length);
+
     
     // Fetch additional pages if needed
     page = 1;
