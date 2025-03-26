@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import '../styles/components/Navbar.css';
 import { supabase } from '../services/supabase';
+import { formatDate } from '../utils/formatters';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
