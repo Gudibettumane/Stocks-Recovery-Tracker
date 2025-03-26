@@ -41,7 +41,6 @@ export const fetchStockRecoveryMetrics = async () => {
       }
       
       if (nextPageResult.data && nextPageResult.data.length > 0) {
-        console.log(`Page ${page}: Retrieved ${nextPageResult.data.length} records`);
         allData = [...allData, ...nextPageResult.data];
       } else {
         // No more data
@@ -50,8 +49,6 @@ export const fetchStockRecoveryMetrics = async () => {
       
       page++;
     }
-    
-    console.log('Total records fetched:', allData.length);
     return allData;
   } catch (error) {
     console.error('Error fetching recovery metrics:', error);
