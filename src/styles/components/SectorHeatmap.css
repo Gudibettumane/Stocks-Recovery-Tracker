@@ -23,7 +23,7 @@
 
 .heatmap-table th {
   background-color: #f8fafc;
-  color: var(--text-medium);
+  color: #2477f3;
   font-weight: 600;
   position: sticky;
   top: 0;
@@ -40,7 +40,7 @@
   font-weight: 600;
   text-align: left;
   background-color: #f8fafc;
-  color: black;
+  color: #2477f3;
   position: sticky;
   left: 0;
   min-width: 180px;
