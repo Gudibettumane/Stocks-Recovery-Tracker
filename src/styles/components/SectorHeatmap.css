@@ -37,11 +37,10 @@
 }
 
 .sector-name {
-  color: black;
   font-weight: 600;
   text-align: left;
   background-color: #f8fafc;
-  color: var(--text-dark);
+  color: black;
   position: sticky;
   left: 0;
   min-width: 180px;
