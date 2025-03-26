@@ -5,6 +5,7 @@ import '../styles/components/Navbar.css';
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [lastUpdated, setLastUpdated] = useState(null);
   const location = useLocation();
 
   // Handle scroll event to add shadow to navbar
@@ -23,10 +24,40 @@ const Navbar = () => {
     };
   }, []);
 
+  // Fetch last updated date from database
+  useEffect(() => {
+    async function fetchLastUpdated() {
+      try {
+        // Query the stock_data table for the most recent date
+        const { data, error } = await supabase
+          .from('stock_data')
+          .select('Date')
+          .order('Date', { ascending: false })
+          .limit(1);
+        
+        if (error) {
+          console.error('Error fetching last updated date:', error);
+          return;
+        }
+        
+        if (data && data.length > 0) {
+          setLastUpdated(data[0].Date);
+        }
+      } catch (err) {
+        console.error('Error in last updated fetch:', err);
+      }
+    }
+    
+    fetchLastUpdated();
+  }, []);
+
   // Close mobile menu when route changes
   useEffect(() => {
     setIsOpen(false);
   }, [location]);
+
+  // Format date for display
+  const formattedDate = lastUpdated ? formatDate(lastUpdated) : 'Loading...';
 
   return (
     <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
@@ -68,7 +99,7 @@ const Navbar = () => {
           <li className="navbar-item info-item">
             <div className="market-info">
               <div className="info-label">Last Updated</div>
-              <div className="info-value">Mar 23, 2025</div>
+              <div className="info-value">{formattedDate}</div>
             </div>
           </li>
         </ul>
